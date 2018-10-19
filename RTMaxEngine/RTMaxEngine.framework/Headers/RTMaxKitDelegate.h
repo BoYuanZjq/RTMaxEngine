@@ -29,7 +29,7 @@
  @param strGroupId 组ID
  @param nCode 错误码
  */
-- (void)onRTCJoinTalkGroupFailed:(NSString*)strGroupId withCode:(int)nCode;
+- (void)onRTCJoinTalkGroupFailed:(NSString*)strGroupId code:(int)nCode;
 
 /**
  离开对讲组
@@ -55,7 +55,7 @@
  @param strUserId 用户Id
  @param strUserData 用户自定义数据
  */
-- (void)onRTCTalkOn:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (void)onRTCTalkOn:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  对讲结束
@@ -64,7 +64,7 @@
  @param strUserId 用户Id
  @param strUserData 用户自定义数据
  */
-- (void)onRTCTalkClosed:(int)nCode withUserId:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (void)onRTCTalkClosed:(int)nCode userId:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  音频检测
@@ -74,7 +74,7 @@
  @param nLevel 音量（0~100）
  @param nTime 说话时间值（在该段时间内不会再次回调）
  */
-- (void)onRTCAudioActive:(NSString*)strRTCPeerId withUserId:(NSString*)strUserId withAudioLevel:(int)nLevel withShowTime:(int)nTime;
+- (void)onRTCAudioActive:(NSString*)strRTCPeerId userId:(NSString*)strUserId audioLevel:(int)nLevel showTime:(int)nTime;
 
 /**
  当前对讲组在线人数回调
@@ -90,7 +90,7 @@
  @param strUserId 用户Id
  @param strUserData 用户自定义数据
  */
-- (void)onRTCTalkP2POn:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (void)onRTCTalkP2POn:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  与控制台的P2P讲话结束回调
@@ -106,7 +106,7 @@
  @param strUserId 用户Id
  @param strUserData 用户自定义数据
  */
-- (void)onRTCVideoMonitorRequest:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (void)onRTCVideoMonitorRequest:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  视频监看结束
@@ -114,7 +114,7 @@
  @param strUserId 用户Id
  @param strUserData 用户自定义数据
  */
-- (void)onRTCVideoMonitorClose:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (void)onRTCVideoMonitorClose:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  视频监看请求结果
@@ -123,7 +123,7 @@
  @param nCode 错误码
  @param strUserData 用户自定义数据
  */
-- (void)onRTCVideoMonitorResult:(NSString*)strUserId withCode:(int)nCode withUserData:(NSString*)strUserData;
+- (void)onRTCVideoMonitorResult:(NSString*)strUserId code:(int)nCode userData:(NSString*)strUserData;
 
 #pragma mark - 视频上报相关
 /**
@@ -132,7 +132,7 @@
  @param strUserId 用户Id
  @param strUserData 用户自定义数据
  */
-- (void)onRTCVideoReportRequest:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (void)onRTCVideoReportRequest:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  收到视频上报结束
@@ -155,7 +155,7 @@
  @param strUserId 用户Id
  @param strUserData 用户自定义数据
  */
-- (void)onRTCAcceptCall:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (void)onRTCAcceptCall:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  主叫方收到被叫方通话拒绝的回调
@@ -164,7 +164,7 @@
  @param nCode 错误码
  @param strUserData 用户自定义数据
  */
-- (void)onRTCRejectCall:(NSString*)strUserId withCode:(int)nCode withUserData:(NSString*)strUserData;
+- (void)onRTCRejectCall:(NSString*)strUserId code:(int)nCode userData:(NSString*)strUserData;
 
 /**
  被叫方调用leaveCall方法时，主叫方收到
@@ -188,7 +188,7 @@
  @param strUserId 用户Id
  @param strUserData 用户自定义数据
  */
-- (void)onRTCMakeCall:(NSString*)strCallId withCallType:(int)nCallType withUserId:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (void)onRTCMakeCall:(NSString*)strCallId callType:(int)nCallType userId:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  被叫方收到主叫方挂断通话(收到该回掉，把本地视图从父视图删除)
@@ -197,7 +197,7 @@
  @param strUserId 用户自定义数据
  @param nCode 错误码
  */
-- (void)onRTCEndCall:(NSString*)strCallId withUserId:(NSString*)strUserId withCode:(int)nCode;
+- (void)onRTCEndCall:(NSString*)strCallId userId:(NSString*)strUserId code:(int)nCode;
 
 /**
  其他与会者加入（音视频）
@@ -208,7 +208,7 @@
  @param strUserData 开发者自己平台的相关信息（昵称，头像等)；
  说明：其他与会者进入会议的回调，开发者需调用设置其他与会者视频窗口（setRTCVideoRender）方法。
  */
--(void)onRTCOpenVideoRender:(NSString*)strRTCPeerId withRTCPubId:(NSString *)strRTCPubId withUserId:(NSString*)strUserId withUserData:(NSString*)strUserData;
+-(void)onRTCOpenVideoRender:(NSString*)strRTCPeerId pubId:(NSString *)strRTCPubId userId:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  其他与会者离开（音视频）
@@ -218,7 +218,7 @@
  @param strUserId 开发者自己平台的Id；
  说明：其他与会者离开将会回调此方法；需本地移除与会者视频视图。
  */
--(void)onRTCCloseVideoRender:(NSString*)strRTCPeerId withRTCPubId:(NSString *)strRTCPubId withUserId:(NSString*)strUserId;
+-(void)onRTCCloseVideoRender:(NSString*)strRTCPeerId pubId:(NSString *)strRTCPubId userId:(NSString*)strUserId;
 /**
  视频窗口大小改变
  
@@ -235,7 +235,7 @@
  @param strUserData 开发者自己平台的相关信息（昵称，头像等)；
  说明：其他与会者进入会议的回调。
  */
-- (void)onRTCOpenAudioTrack:(NSString*)strRTCPeerId withUserId:(NSString *)strUserId withUserData:(NSString*)strUserData;
+- (void)onRTCOpenAudioTrack:(NSString*)strRTCPeerId userId:(NSString *)strUserId userData:(NSString*)strUserData;
 /**
  其他与会者离开（音频）
  
@@ -243,7 +243,7 @@
  @param strUserId 与开发者自己平台的Id；
  说明：其他与会者离开会议的回调。
  */
-- (void)onRTCCloseAudioTrack:(NSString*)strRTCPeerId withUserId:(NSString *)strUserId;
+- (void)onRTCCloseAudioTrack:(NSString*)strRTCPeerId userId:(NSString *)strUserId;
 
 /**
  用户的音视频状态
@@ -253,7 +253,7 @@
  @param bVideo yes为打开视频，no为关闭视频
  说明：比如对方关闭了音频，对方关闭了视频
  */
--(void)onRTCAVStatus:(NSString*) strRTCPeerId withAudio:(BOOL)bAudio withVideo:(BOOL)bVideo;
+-(void)onRTCAVStatus:(NSString*) strRTCPeerId audio:(BOOL)bAudio video:(BOOL)bVideo;
 
 /**
  网络状态
@@ -263,7 +263,7 @@
  @param nNetSpeed 网络上行
  @param nPacketLost 丢包率
  */
-- (void)onRTCNetworkStatus:(NSString*)strRTCPeerId withUserId:(NSString *)strUserId withNetSpeed:(int)nNetSpeed withPacketLost:(int)nPacketLost;
+- (void)onRTCNetworkStatus:(NSString*)strRTCPeerId userId:(NSString *)strUserId netSpeed:(int)nNetSpeed packetLost:(int)nPacketLost;
 
 #pragma mark - 录像地址回调
 /**
@@ -273,7 +273,7 @@
  @param strUserData 用户自定义数据
  @param strFilePath 录音文件的路径
  */
-- (void)onRTCGotRecordFile:(int)nRecordType withUserData:(NSString*)strUserData withFilePath:(NSString*)strFilePath;
+- (void)onRTCGotRecordFile:(int)nRecordType userData:(NSString*)strUserData filePath:(NSString*)strFilePath;
 
 #pragma mark - 消息回调
 /**
@@ -285,7 +285,7 @@
  @param strContent 消息内容
  说明：该参数来源均为发送消息时所带参数。
  */
-- (void)onRTCUserMessage:(NSString*)strUserId withUserName:(NSString*)strUserName withUserHeader:(NSString*)strUserHeaderUrl withContent:(NSString*)strContent;
+- (void)onRTCUserMessage:(NSString*)strUserId userName:(NSString*)strUserName userHeader:(NSString*)strUserHeaderUrl content:(NSString*)strContent;
 @end
 
 #endif /* RTMaxKitDelegate_h */

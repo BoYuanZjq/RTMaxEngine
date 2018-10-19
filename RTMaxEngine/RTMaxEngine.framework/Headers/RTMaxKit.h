@@ -62,7 +62,7 @@
 - (int)applyTalk:(int)nPriority;
 
 /**
- 取消抢麦
+ 取消抢麦/下麦
  */
 - (void)cancleTalk;
 
