@@ -24,6 +24,49 @@
  */
 - (instancetype)initWithDelegate:(id<RTMaxKitDelegate>)delegate;
 
+
+#pragma mark - 加入或离开对讲组
+
+/**
+ 加入对讲组
+ 
+ @param strGroupId 对讲组id（同一个anyrtc平台的appid内保持唯一性）
+ @param strUserId 用户的第三方平台的用户Id
+ @param strUserData 用户的自定义数据
+ @return -1：strGroupId为空；0：成功;2：strUserData 大于512
+
+ */
+- (int)joinTalkGroup:(NSString*)strGroupId userId:(NSString*)strUserId userData:(NSString*)strUserData;
+
+/**
+ 切换对讲组
+
+ @param strGroupId 对讲组id（同一个anyrtc平台的appid内保持唯一性）
+ @param strUserData 用户的自定义数据
+ @return  -2：切换对讲组失败，-1：strGroupId为空，0：成功；2：strUserData 大于512字节
+ */
+- (int)switchTalkGroup:(NSString*)strGroupId userData:(NSString*)strUserData;
+
+/**
+ 离开对讲组
+ */
+- (void)leaveTalkGroup;
+
+#pragma mark - 对讲相关
+/**
+ 抢麦
+
+ @param nPriority 申请抢麦用户的级别（0权限最大（数值越大，权限越小）；除0意外，可以后台设置0-10之间的抢麦权限大小））
+ @return 0: 调用OK  -1:未登录  -2:正在对讲中  -3: 资源还在释放中 -4: 操作太过频繁
+ */
+- (int)applyTalk:(int)nPriority;
+
+/**
+ 取消抢麦
+ */
+- (void)cancleTalk;
+
+
 #pragma mark - 公共功能
 
 /**
@@ -33,7 +76,7 @@
  @param option 视频配置
  说明：该方法用于本地视频采集。
  */
-- (void)setLocalVideoCapturer:(UIView*)render withOption:(RTMaxOption*)option;
+- (void)setLocalVideoCapturer:(UIView*)render option:(RTMaxOption*)option;
 
 /**
  切换前后摄像头
@@ -43,7 +86,7 @@
 
 /**
  设置音频检测
-
+ 
  @param bEnable YES/NO
  说明：默认关闭音频检测
  */
@@ -51,7 +94,7 @@
 
 /**
  获取当前是否打开了音频检测
-
+ 
  @return 音频检测打开与否
  */
 - (BOOL)getAudioDetectEnabled;
@@ -74,32 +117,32 @@
 
 /**
  设置录像
-
+ 
  @param strFilePath 呼叫通话录音的保存路径（文件夹路径）
- @param strPtalkPath 对讲录音的保存路径（文件夹路径）
- @param strPtalkP2PPath 强插P2P录像的保存路径（文件夹路径）
+ @param strTalkPath 对讲录音的保存路径（文件夹路径）
+ @param strTalkP2PPath 强插P2P录像的保存路径（文件夹路径）
  @return 0/1:文件夹不存在设置成功
  */
-- (BOOL)setRecordPath:(NSString*)strFilePath withPtalkPath:(NSString*)strPtalkPath withPTalkP2PPath:(NSString*)strPtalkP2PPath;
+- (BOOL)setRecordPath:(NSString*)strFilePath talkPath:(NSString*)strTalkPath talkP2PPath:(NSString*)strTalkP2PPath;
 
 
 /**
  设置远端用户是否可以接收自己的音视频
-
+ 
  @param strUserId 远端用户UserId
  @param bAudioEnable YES：音频可用，NO：音频不可用
  @param bVideoEnable YES：视频可用，NO：视频不可用
  */
-- (void)setRemoteAVEnable:(NSString*)strUserId withAudio:(BOOL)bAudioEnable withVideo:(BOOL)bVideoEnable;
+- (void)setRemoteAVEnable:(NSString*)strUserId audio:(BOOL)bAudioEnable video:(BOOL)bVideoEnable;
 
 /**
  设置不接收指定通道的音视频
-
+ 
  @param strPeerId 视频通道的PeerId或者PubId
  @param bAudioEnable  YES：音频可用，NO：音频不可用
  @param bVideoEnable YES：视频可用，NO：视频不可用
  */
-- (void)setRemotePeerAVEnable:(NSString*)strPeerId withAudio:(BOOL)bAudioEnable withVideo:(BOOL)bVideoEnable;
+- (void)setRemotePeerAVEnable:(NSString*)strPeerId audio:(BOOL)bAudioEnable video:(BOOL)bVideoEnable;
 
 #pragma mark - 视频流信息监测
 
@@ -118,47 +161,6 @@
  */
 - (BOOL)networkStatusEnabled;
 
-#pragma mark - 加入或离开对讲组
-
-/**
- 加入对讲组
- 
- @param strGroupId 对讲组id（同一个anyrtc平台的appid内保持唯一性）
- @param strUserId 用户的第三方平台的用户Id
- @param strUserData 用户的自定义数据
- @return -1：strGroupId为空；0：成功;2：strUserData 大于512
-
- */
-- (int)joinTalkGroup:(NSString*)strGroupId withUserId:(NSString*)strUserId withUserData:(NSString*)strUserData;
-
-/**
- 切换对讲组
-
- @param strGroupId 对讲组id（同一个anyrtc平台的appid内保持唯一性）
- @param strUserData 用户的自定义数据
- @return  -2：切换对讲组失败，-1：strGroupId为空，0：成功；2：strUserData 大于512字节
- */
-- (int)switchTalkGroup:(NSString*)strGroupId withUserData:(NSString*)strUserData;
-
-/**
- 离开对讲组
- */
-- (void)leaveTalkGroup;
-
-#pragma mark - 对讲相关
-/**
- 抢麦
-
- @param nPriority 申请抢麦用户的级别（0权限最大（数值越大，权限越小）；除0意外，可以后台设置0-10之间的抢麦权限大小））
- @return 0: 调用OK  -1:未登录  -2:正在对讲中  -3: 资源还在释放中 -4: 操作太过频繁
- */
-- (int)applyTalk:(int)nPriority;
-
-/**
- 取消抢麦
- */
-- (void)cancleTalk;
-
 #pragma mark - P2P关闭（回掉会把当前通话变为P2P）
 /**
  关闭P2P通话
@@ -175,7 +177,7 @@
  @param strUserData 用户的自定义数据
  @return 0:调用OK;-1:未登录;-2:没有通话-3:视频资源占用中;-5:本操作不支持自己对自己;-6:会话未创建（没有被呼叫用户）
  */
-- (int)makeCall:(NSString*)strUserId withType:(int)nType withUserData:(NSString*)strUserData;
+- (int)makeCall:(NSString*)strUserId type:(int)nType userData:(NSString*)strUserData;
 
 /**
  邀请用户
@@ -184,7 +186,7 @@
  @param strUserData 用户的自定义数据
  @return 0:调用OK;-1:未登录;-2:没有通话-3:视频资源占用中;-5:本操作不支持自己对自己;-6:会话未创建（没有被呼叫用户）
  */
-- (int)inviteCall:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (int)inviteCall:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  主叫端结束某一路正在进行的通话
@@ -221,7 +223,7 @@
  @param render 对方视频的窗口，本地设置；
  说明：该方法用于与会者接通后，与会者视频接通回调中（OnRTCOpenVideoRender）使用。
  */
-- (void)setRTCVideoRender:(NSString*)strRTCPubId andRender:(UIView*)render;
+- (void)setRTCVideoRender:(NSString*)strRTCPubId render:(UIView*)render;
 
 #pragma mark - 视频监看
 /**
@@ -231,7 +233,7 @@
  @param strUserData  用户的自定义数据
  @return 0:调用OK;-1:未登录;-5:本操作不支持自己对自己
  */
-- (int)monitorVideo:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (int)monitorVideo:(NSString*)strUserId userData:(NSString*)strUserData;
 
 /**
  同意别人视频监看
@@ -275,6 +277,6 @@
  说明：如果加入RTC（joinRTC）没有设置strUserid，发送失败。
  */
 
-- (BOOL)sendUserMessage:(NSString*)strUserName andUserHeader:(NSString*)strUserHeaderUrl andContent:(NSString*)strContent;
+- (BOOL)sendUserMessage:(NSString*)strUserName userHeader:(NSString*)strUserHeaderUrl content:(NSString*)strContent;
 
 @end

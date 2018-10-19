@@ -55,7 +55,7 @@
  @param strUserId 用户Id
  @param strUserData 用户自定义数据
  */
-- (void)OnRTCTalkOn:(NSString*)strUserId withUserData:(NSString*)strUserData;
+- (void)onRTCTalkOn:(NSString*)strUserId withUserData:(NSString*)strUserData;
 
 /**
  对讲结束
@@ -69,12 +69,12 @@
 /**
  音频检测
 
- @param strRtcPeerId 当前用户的peerId
+ @param strRTCPeerId 当前用户的peerId
  @param strUserId 用户Id
  @param nLevel 音量（0~100）
  @param nTime 说话时间值（在该段时间内不会再次回调）
  */
-- (void)onRTCAudioActive:(NSString*)strRtcPeerId withUserId:(NSString*)strUserId withAudioLevel:(int)nLevel withShowTime:(int)nTime;
+- (void)onRTCAudioActive:(NSString*)strRTCPeerId withUserId:(NSString*)strUserId withAudioLevel:(int)nLevel withShowTime:(int)nTime;
 
 /**
  当前对讲组在线人数回调
@@ -194,10 +194,10 @@
  被叫方收到主叫方挂断通话(收到该回掉，把本地视图从父视图删除)
 
  @param strCallId 呼叫Id
- @param strUserID 用户自定义数据
+ @param strUserId 用户自定义数据
  @param nCode 错误码
  */
-- (void)onRTCEndCall:(NSString*)strCallId withUserId:(NSString*)strUserID withCode:(int)nCode;
+- (void)onRTCEndCall:(NSString*)strCallId withUserId:(NSString*)strUserId withCode:(int)nCode;
 
 /**
  其他与会者加入（音视频）
@@ -263,7 +263,7 @@
  @param nNetSpeed 网络上行
  @param nPacketLost 丢包率
  */
-- (void)onRtcNetworkStatus:(NSString*)strRTCPeerId withUserId:(NSString *)strUserId withNetSpeed:(int)nNetSpeed withPacketLost:(int)nPacketLost;
+- (void)onRTCNetworkStatus:(NSString*)strRTCPeerId withUserId:(NSString *)strUserId withNetSpeed:(int)nNetSpeed withPacketLost:(int)nPacketLost;
 
 #pragma mark - 录像地址回调
 /**
