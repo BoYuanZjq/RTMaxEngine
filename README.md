@@ -1,2 +1,2 @@
 # RTMaxEngine
-anyRTC只能调度、对讲
+anyRTC智能调度、对讲
