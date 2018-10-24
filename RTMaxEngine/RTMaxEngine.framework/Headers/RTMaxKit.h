@@ -191,7 +191,7 @@
 /**
  主叫端结束某一路正在进行的通话
  
- @param strUserId 用户的Id
+ @param strUserId 结束的这路视频的用户ID
  */
 - (void)endCall:(NSString*)strUserId;
 
@@ -221,7 +221,7 @@
  
  @param strRTCPubId RTC服务生成流的ID (用于标识与会者发布的流)；
  @param render 对方视频的窗口，本地设置；
- 说明：该方法用于与会者接通后，与会者视频接通回调中（OnRTCOpenVideoRender）使用。
+ 说明：该方法用于与会者接通后，与会者视频接通回调中（onRTCOpenVideoRender）使用。
  */
 - (void)setRTCVideoRender:(NSString*)strRTCPubId render:(UIView*)render;
 

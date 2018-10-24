@@ -15,7 +15,7 @@
 
 @optional
 
-#pragma mark - 加入对讲组相关回调
+#pragma mark - 进出对讲组相关回调
 /**
  加入对讲组成功/切换对讲组成功
 
@@ -141,7 +141,7 @@
  */
 - (void)onRTCVideoReportClose:(NSString*)strUserId;
 
-#pragma  mark - 视频呼叫邀请相关
+#pragma  mark - 音视频呼叫邀请相关
 /**
  主叫方发起通话成功
 
