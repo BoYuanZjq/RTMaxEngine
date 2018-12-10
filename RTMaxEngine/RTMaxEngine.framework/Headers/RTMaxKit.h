@@ -245,6 +245,13 @@
 - (int)acceptVideoMonitor:(NSString*)strUserId;
 
 /**
+ 拒绝监看
+
+ @param strUserId 发起人的用户Id
+ */
+-(void)rejectVideoMonitor:(NSString*)strUserId;
+
+/**
  监看发起者关闭视频监看（谁监看谁关闭）
  @param strUserId 被监看的用户Id
  说明：关闭成功会有回掉（onRTCCloseVideoRender），把显示的视图从父视图上删除掉
