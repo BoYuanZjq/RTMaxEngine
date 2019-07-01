@@ -11,6 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+// Image type
+typedef NS_ENUM(NSInteger,ARCaptureType) {
+    YUV420PType = 0,//YUV  -  kCVPixelFormatType_420YpCbCr8BiPlanarFullRange
+    RGBType         //RGB  -  kCVPixelFormatType_32BGRA
+};
+
 // 用户信息
 @interface ARUserItem : NSObject
 
