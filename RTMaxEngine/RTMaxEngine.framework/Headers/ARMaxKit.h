@@ -146,6 +146,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)setRemotePeerAVEnable:(NSString*)peerId audio:(BOOL)enable video:(BOOL)enable;
 
+/**
+ 重置音频录音和播放
+ 
+ 说明：使用AVplayer播放后调用该方法。
+ */
+- (void)doRestartAudioRecord;
+
+
 #pragma mark - 视频流信息监测
 
 /**
