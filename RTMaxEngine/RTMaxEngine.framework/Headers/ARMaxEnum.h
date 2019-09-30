@@ -51,9 +51,12 @@ typedef NS_ENUM(NSInteger,ARMaxCode) {
     ARMax_APPLY_NO_PRIO = 802,              // 当前麦被占用 (有人正在说话切你的权限不够)
     ARMax_APPLY_INITING = 803,              // 正在初始化中 (自身的通道没有发布成功,不能申请)
     ARMax_APPLY_ING = 804,                  // 等待上麦
+    ARMax_APPLY_TIMEOUT = 805,              // 上麦超时
     ARMax_ROBBED = 810,                     // 麦被抢掉了
     ARMax_BREAKED = 811,                    // 麦被释放了
     ARMax_RELEASED_BY_P2P = 812,            // 麦被释放了，因为要对讲
+    ARMax_TIMEOUT = 813,                    // 麦因为超时被释放了
+    ARMax_BAD_NETWORK = 814,                // 麦因为网络差被释放了
     ARMax_P2P_OFFLINE = 820,                // 强插时，对方可能不在线了或异常离线
     ARMax_P2P_BUSY = 821,                   // 强插时，对方正忙
     ARMax_P2P_NOT_TALK = 822,               // 强插时，对方不在麦上
