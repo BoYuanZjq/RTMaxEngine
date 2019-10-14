@@ -147,14 +147,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setRemotePeerAVEnable:(NSString*)peerId audio:(BOOL)enable video:(BOOL)enable;
 
 /**
- 重置音频录音和播放
- 
- 说明：使用AVplayer播放后调用该方法。
- */
-- (void)doRestartAudioRecord;
-
-
-/**
  启用/关闭扬声器播放
 
  @param enableSpeaker YES: 切换到外放;NO: 切换到听筒。如果设备连接了耳机，则语音路由走耳机
