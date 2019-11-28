@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger,ARMaxCode) {
     ARMax_SERVER_NOT_OPEN = 208,            // 服务未开通
     ARMax_ALLOC_NO_RES = 209,               // 没有服务器资源
     ARMax_SERVER_NOT_SURPPORT = 210,        // 不支持的服务
-    ARMax_FORCE_EXIT = 211,                 // 强制离开
+    ARMax_CHECK_USER_TOKEN_ERR = 211,       // 验证用户的token发生错误
     ARMax_AUTH_TIMEOUT = 212,               // 验证超时
     ARMax_NEED_VERTIFY_TOKEN = 213,         // 需要验证userToken
     ARMax_WEB_DOMIAN_ERROR = 214,           // Web应用的域名验证失败
