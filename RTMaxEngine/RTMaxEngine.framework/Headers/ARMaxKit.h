@@ -59,9 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 对讲相关
 /**
  抢麦
+ 说明：上麦时长不能超过60s
  
  @param priority 申请抢麦用户的级别（0权限最大（数值越大，权限越小）；除0意外，可以后台设置0-10之间的抢麦权限大小）
- @return 0: 调用OK  -1:未登录  -2:正在对讲中  -3: 资源还在释放中 -4: 操作太过频繁
+ @return 0: 调用OK  -1:未登录  -2:正在对讲中  -3: 资源还在释放中 -4: 操作太过频繁 -5:当前音频输入不存在
  */
 - (int)applyTalk:(int)priority;
 
@@ -69,7 +70,19 @@ NS_ASSUME_NONNULL_BEGIN
  取消抢麦/下麦
  */
 - (void)cancleTalk;
+/**
+设置只有对讲模式
 
+@param enable YES:只有对讲；NO:包含所有功能
+*/
+- (void)setOnlyTalkMode:(BOOL)enable;
+
+/**
+设置上麦时长
+
+@param time 上麦时长  10s<= time <=600s
+*/
+- (void)setTalkLimitTime:(int)time;
 
 #pragma mark - 公共功能
 
@@ -118,7 +131,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setLocalVideoEnable:(BOOL)enable;
 
 /**
- 设置录像
+设置视频录制
+
+@param enable YES为录制视频，NO为不录制视频
+说明：默认录制视频
+*/
+- (void)setVideoRecorderEnable:(BOOL)enable;
+/**
+ 设置录制地址
  
  @param filePath 呼叫通话录音的保存路径（文件夹路径）
  @param talkPath 对讲录音的保存路径（文件夹路径）
@@ -126,7 +146,11 @@ NS_ASSUME_NONNULL_BEGIN
  @return 0:设置失败;1:设置成功
  */
 - (BOOL)setRecordPath:(NSString*)filePath talkPath:(NSString*)talkPath talkP2PPath:(NSString*)talkP2PPath;
+/**
+取消录制
 
+*/
+- (void)clearRecordPath;
 
 /**
  设置远端用户是否可以接收自己的音视频
@@ -174,6 +198,14 @@ NS_ASSUME_NONNULL_BEGIN
  说明：使用AVplayer播放后调用该方法。
  */
 - (void)doRestartAudioRecord;
+
+/**
+ 告知sdk网络状况
+
+ @param value YES:网络差;NO:网络好
+ 说明:当网络不是4G,WIFI的时候都是差网络
+*/
+- (void)setNetSignalIsBad:(BOOL)value;
 
 #pragma mark - 视频流信息监测
 

@@ -55,8 +55,10 @@ typedef NS_ENUM(NSInteger,ARMaxCode) {
     ARMax_ROBBED = 810,                     // 麦被抢掉了
     ARMax_BREAKED = 811,                    // 麦被释放了
     ARMax_RELEASED_BY_P2P = 812,            // 麦被释放了，因为要对讲
-    ARMax_TIMEOUT = 813,                    // 麦因为超时被释放了
-    ARMax_BAD_NETWORK = 814,                // 麦因为网络差被释放了
+    ARMax_TIMEOUT = 813,                    // 麦因为超时被释放了(服务端返回)
+    ARMax_OVER_TIME_LIMIT = 814,            // 上麦超过本地时间限制
+    ARMax_BAD_NETWORK = 815,                // 上麦因为网络差被释放了
+    ARMax_EXCEPTION_OFF = 816,              // 异常下麦
     ARMax_P2P_OFFLINE = 820,                // 强插时，对方可能不在线了或异常离线
     ARMax_P2P_BUSY = 821,                   // 强插时，对方正忙
     ARMax_P2P_NOT_TALK = 822,               // 强插时，对方不在麦上
@@ -70,6 +72,25 @@ typedef NS_ENUM(NSInteger,ARMaxCode) {
     ARMax_CALL_FORCE_OFF = 843,             // 会话被强拆
     
 };
+
+/** Audio output routing. */
+typedef NS_ENUM(NSInteger, ARAudioOutputRouting) {
+    /** Default. */
+    ARAudioOutputRoutingDefault = -1,
+    /** Headset.*/
+    ARAudioOutputRoutingHeadset = 0,
+    /** Earpiece. */
+    ARAudioOutputRoutingEarpiece = 1,
+    /** Headset with no microphone. */
+    ARAudioOutputRoutingHeadsetNoMic = 2,
+    /** Speakerphone. */
+    ARAudioOutputRoutingSpeakerphone = 3,
+    /** Loudspeaker. */
+    ARAudioOutputRoutingLoudspeaker = 4,
+    /** Bluetooth headset. */
+    ARAudioOutputRoutingHeadsetBluetooth = 5
+};
+
 
 
 #endif /* ARMaxEnum_h */

@@ -17,16 +17,92 @@
 
 @optional
 
-#pragma mark - 进出对讲组相关回调
+#pragma mark - 对讲相关回调
 /**
- 加入对讲组成功/切换对讲组成功回调
+加入对讲组成功/切换对讲组成功回调 - 对讲服务
+
+@param groupId 组ID
+*/
+- (void)onRTCJoinMaxGroupOk:(NSString*)groupId;
+/**
+加入对讲组失败/切换对讲组失败回调 -对讲服务
+
+@param groupId 组ID
+@param code 错误码
+@param reason 错误原因,rtc错误，或者token错误（错误值自己平台定义）
+*/
+- (void)onRTCJoinMaxGroupFailed:(NSString*)groupId code:(ARMaxCode)code reason:(NSString*)reason;
+/**
+临时断开对讲组回调 -对讲服务
+
+@param code 错误码
+*/
+- (void)onRTCTempLeaveMaxGroup:(ARMaxCode)code;
+/**
+离开对讲组回调 - 对讲服务
+
+@param code 错误码：0是正常退出；100：网络错误；207：强制退出。其他值参考错误码
+*/
+
+- (void)onRTCLeaveMaxGroup:(ARMaxCode)code;
+
+#pragma mark - 对讲相关回调-对讲状态
+/**
+ 申请语音上麦成功回调
+ */
+- (void)onRTCApplyTalkOk;
+
+/**
+申请语音上麦失败回调
+
+@param code 错误码
+@param userId 用户Id
+@param userData 用户自定义数据
+*/
+- (void)onRTCApplyTalkClosed:(ARMaxCode)code userId:(NSString*)userId userData:(NSString*)userData;
+
+
+/**
+ 其他人上麦成功回调
+ 
+ @param userId 用户Id
+ @param userData 用户自定义数据
+ */
+- (void)onRTCTalkOn:(NSString*)userId userData:(NSString*)userData;
+
+/**
+ 其他人下麦回调
+ 
+ @param code 错误码 0：正常结束对讲；其他参考错误码
+ @param userId 用户Id
+ @param userData 用户自定义数据
+ */
+- (void)onRTCTalkClosed:(ARMaxCode)code userId:(NSString*)userId userData:(NSString*)userData;
+
+
+#pragma mark - 对讲相关回调-网络发生变化状态
+
+/**
+SDK向应用层获取当前的网络状态
+
+说明:
+ -如果是2G、3G网络，是弱网；如果是4G和WIFI，为非弱网
+ -SDK为弱网传输做了深度优化
+@return YES:弱网；NO:非弱网
+*/
+- (BOOL)onRTCCheckNetSignalIsBad;
+
+
+#pragma mark - 进出对讲组相关回调 - 多媒体服务
+/**
+ 加入对讲组成功/切换对讲组成功回调 - 多媒体服务
  
  @param groupId 组ID
  */
 - (void)onRTCJoinTalkGroupOK:(NSString *)groupId;
 
 /**
- 加入对讲组失败/切换对讲组失败回调
+ 加入对讲组失败/切换对讲组失败回调 - 多媒体服务
  
  @param groupId 组ID
  @param code 错误码
@@ -35,41 +111,19 @@
 - (void)onRTCJoinTalkGroupFailed:(NSString*)groupId code:(ARMaxCode)code reason:(NSString*)reason;
 
 /**
- 离开对讲组回调
+临时断开群组回调 - 多媒体服务
+
+@param code 错误码
+*/
+- (void)onRTCTempLeaveTalkGroup:(ARMaxCode)code;
+
+/**
+ 离开对讲组回调 - 多媒体
  
  @param code 错误码：0是正常退出；100：网络错误；207：强制退出。其他值参考错误码
  */
 - (void)onRTCLeaveTalkGroup:(ARMaxCode)code;
 
-#pragma mark - 对讲相关
-/**
- 申请对讲成功回调
- */
-- (void)onRTCApplyTalkOk;
-
-/**
- 其他人正在对讲组中讲话的回调
- 
- @param userId 用户Id
- @param userData 用户自定义数据
- */
-- (void)onRTCTalkOn:(NSString*)userId userData:(NSString*)userData;
-
-/**
- 对讲结束回调
- 
- @param code 错误码 0：正常结束对讲；其他参考错误码
- @param userId 用户Id
- @param userData 用户自定义数据
- */
-- (void)onRTCTalkClosed:(ARMaxCode)code userId:(NSString*)userId userData:(NSString*)userData;
-
-/**
- 当前对讲组在线人数回调
- 
- @param num 当前在线人员数量
- */
-- (void)onRTCMemberNum:(int)num;
 
 #pragma mark - P2P控制台通话回调
 /**
@@ -281,6 +335,20 @@
 #pragma mark - 网络状态和音频检测
 
 /**
+ 语音路由已改变
+
+ @param routing 设置语音路由: ARAudioOutputRouting
+ */
+- (void)onRTCAudioRouteChanged:(ARAudioOutputRouting)routing;
+
+/**
+ 语音session是否发生错误
+
+ @param error YES:发生错误，NO:回归正常
+ 说明：当收到错误的时候，等待3s看是否能切回正常，如果3s内没有切回正常，则提示并推出对讲组
+*/
+- (void)onRTCAudioSessionError:(BOOL)error;
+/**
  其他与会者声音大小回调
  
  @param peerId RTC服务生成的与会者标识Id（用于标识与会者用户，每次随机生成）
@@ -320,6 +388,16 @@
  */
 - (void)onRTCLocalNetworkStatus:(int)netSpeed packetLost:(int)packetLost netQuality:(ARNetQuality)netQuality;
 
+/**
+流量状态
+
+@param allBytes 总的流量
+@param sendBytes 发送的流量
+@param recvBytes 接收的流量
+@param details 详情
+*/
+- (void)onRTCNetStatsAll:(int)allBytes sendBytes:(int)sendBytes recvBytes:(int)recvBytes detail:(NSString*)details;
+
 #pragma mark - 录像地址回调
 /**
  录像地址回调信息回调
@@ -341,6 +419,22 @@
  说明：该参数来源均为发送消息时所带参数。
  */
 - (void)onRTCUserMessage:(NSString*)userId userName:(NSString*)userName userHeader:(NSString*)userHeaderUrl content:(NSString*)content;
+
+
+/**
+ 当前对讲组在线人数回调
+ 
+ @param num 当前在线人员数量
+ */
+- (void)onRTCMemberNum:(int)num;
+
+/**
+第三方用户平台自定义消息通知
+
+@param userData 自定义消息内容
+*/
+- (void)onRTCUserDataNotify:(NSString*)userData;
+
 @end
 
 #endif /* ARMaxKitDelegate_h */
